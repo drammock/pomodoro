@@ -3,12 +3,12 @@
 # This is a simple script for pomodoro timer.
 # This is intended to be used with xfce4-genmon-plugin.
 
-size=24		# Icon size in pixels
-pomodoro_time=25	# Time for the pomodoro cycle (in minutes)
-short_break_time=5	# Time for the short break cycle (in minutes)
-long_break_time=15	# Time for the long break cycle (in minutes)
-cycles_between_long_breaks=4 # How many cycles should we do before long break
-notify_time=5	# Time for notification to hang (in seconds)
+size=16                       # Icon size in pixels
+pomodoro_time=25              # Time for the pomodoro cycle (in minutes)
+short_break_time=5            # Time for the short break cycle (in minutes)
+long_break_time=15            # Time for the long break cycle (in minutes)
+cycles_between_long_breaks=4  # How many cycles before long break?
+notify_time=5                 # Time for notification to hang (in seconds)
 
 DIR="$( cd -P "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -22,9 +22,9 @@ short_break_cycle=$(( short_break_time * 60 ))
 long_break_cycle=$(( long_break_time * 60 ))
 notify_time=$(( notify_time * 1000 ))
 summary="Pomodoro"
-startmsg="Pomodoro started, you have $pomodoro_time minutes left"
-endmsg_shortbreak="Pomodoro ended, stop the work and take short break"
-endmsg_longbreak="Pomodoro ended, stop the work and take long break"
+startmsg="Pomodoro running, you have $pomodoro_time minutes left"
+endmsg_shortbreak="Pomodoro ended, take a short break"
+endmsg_longbreak="Pomodoro ended, take a long break"
 killmsg="Pomodoro stopped, restart when you are ready"
 
 function xnotify () {
@@ -118,7 +118,7 @@ else
 
 		msg=$startmsg
 		if [ $remaining_time -le 0 ] ; then
-			# If remaining_time is is below zero for more that short break cycle,
+			# If remaining_time is below zero for more than short break cycle,
 			# that makes pomodoro invalid.
 			# This, for example, can occure when computer was turned off.
 			# In such case terminate pomodoro and exit.
@@ -150,9 +150,9 @@ else
 
 			fi
 
-			aplay "$DIR/cow.wav"
+			#aplay "$DIR/cow.wav"
 			xnotify "$msg"
-			zenity --info --text="$msg"
+			#zenity --info --text="$msg"
 			echo "$current_time" > "$savedtime"
 
 		else
